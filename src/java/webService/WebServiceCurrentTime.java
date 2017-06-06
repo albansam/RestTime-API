@@ -5,6 +5,8 @@
  */
 package webService;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -38,7 +40,9 @@ public class WebServiceCurrentTime {
     @GET
     @Produces("application/json")
     public String getJson() {
-        return "Il est midi";
+        String jour = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+        String heure = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+        return "Jour : " + jour + " Heure : " + heure;
         //throw new UnsupportedOperationException();
     }
 
