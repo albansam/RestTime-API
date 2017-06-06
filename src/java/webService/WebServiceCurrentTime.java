@@ -42,7 +42,11 @@ public class WebServiceCurrentTime {
     public String getJson() {
         String jour = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
         String heure = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-        return "Jour : " + jour + " Heure : " + heure;
+	Map<String, String> timeMap = new HashMap<String, String>();
+	timeMap.put("jour",jour);
+	timeMap.put("heure",heure);
+	JSONObject jsonReturn = new JSONObject(timeMap);
+        return jsonReturn.toString();
         //throw new UnsupportedOperationException();
     }
 
