@@ -2,10 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/mnt/roon/users/asamier/REST/RESTime/web/index.jsp</file>
-            <file>file:/mnt/roon/users/asamier/REST/RESTime/src/java/webService/ApplicationConfig.java</file>
-            <file>file:/mnt/roon/users/asamier/REST/RESTime/src/java/webService/WebServiceCurrentTime.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
