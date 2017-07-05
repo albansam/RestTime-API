@@ -7,6 +7,11 @@ package webService;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -42,12 +47,13 @@ public class WebServiceCurrentTime {
     public String getJson() {
         String jour = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
         String heure = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-	Map<String, String> timeMap = new HashMap<String, String>();
-	timeMap.put("jour",jour);
-	timeMap.put("heure",heure);
-	JSONObject jsonReturn = new JSONObject(timeMap);
+
+        JsonArray jsonReturn = Json.createArrayBuilder()
+            .add(Json.createObjectBuilder()
+            .add("jour", jour)
+            .add("heure", heure))
+            .build();
         return jsonReturn.toString();
-        //throw new UnsupportedOperationException();
     }
 
     /**
