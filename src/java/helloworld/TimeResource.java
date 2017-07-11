@@ -20,7 +20,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import helloworld.Event;
+import java.util.ArrayList;
 import java.util.List;
+import javax.json.JsonObject;
 import static javax.ws.rs.HttpMethod.POST;
 import javax.ws.rs.POST;
 
@@ -33,10 +35,7 @@ import javax.ws.rs.POST;
 public class TimeResource {
 
     @Context
-    private UriInfo context;
-    
-    @Context 
-    private List<Event> listEvent;
+    private UriInfo context;       
 
     /**
      * Creates a new instance of TimeResource
@@ -127,19 +126,42 @@ public class TimeResource {
         return jsonReturn.toString();
     }
     
+    /**
+     * Add an event
+     * @param eventName Event name
+     * @param eventDate Event date
+     * @return Agreement string
+     */
     @GET
     @Path("AddEvent/{eName}/{eDate}")
-    @Produces("application/json")
+    @Produces("text/plain")
     public String addEvent(@PathParam("eName") String eventName, @PathParam("eDate") String eventDate){
-        String day = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-        String hour = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-
-        JsonArray jsonReturn = Json.createArrayBuilder()
-            .add(Json.createObjectBuilder()
-            .add("day", day)
-            .add("hour", hour))
-            .build();
-        return jsonReturn.toString();
+        Event e = new Event(eventName, eventDate);
+        e.storeToFile();
+        return "Event created ! " + e.countEvents() + " events stored.";
+    }
+    
+    /**
+     * Returns the current server time
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Path("ListEvents")
+    @Produces("application/json")
+    public String listEvent() {       
+        Event mockEvent = new Event("","");
+        List<Event> listE = mockEvent.getListEvent();
+        
+        String returnString = "{\n\t\"eventList\": [";
+        
+        for (Event e : listE) {
+            returnString = returnString + "\n\t\t{\"name\": \"" + e.eventName + "\", \"date\": \"" + e.eventDate.toString() + "\"},";
+        }
+        returnString = returnString.substring(0, returnString.length() - 1);
+        
+        returnString = returnString + "\n]\n}";        
+            
+        return returnString;
     }
 
     /**

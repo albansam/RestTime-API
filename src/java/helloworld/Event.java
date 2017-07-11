@@ -7,7 +7,9 @@ package helloworld;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,6 +18,7 @@ import java.util.Date;
 public class Event {
     public String eventName;
     public Date eventDate;
+    public static List<Event> eventList = new ArrayList<Event>();
     
     public Event(String eName, String eDate){
         this.eventName = eName;
@@ -28,5 +31,17 @@ public class Event {
             e.printStackTrace();
         }    
         
+    }
+    
+    public void storeToFile(){
+        eventList.add(this);
+    }
+    
+    public int countEvents(){
+        return eventList.size();
+    }
+    
+    public List<Event> getListEvent(){
+        return eventList;
     }
 }
